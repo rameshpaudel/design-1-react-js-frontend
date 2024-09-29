@@ -1,0 +1,76 @@
+/* Ensure body takes full height */
+body {
+  margin: 0; /* Remove default margin */
+  height: 100vh; /* Full viewport height */
+  font-family: 'Poppins', sans-serif; /* Ensure consistent font */
+}
+
+.chat-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  height: 100vh; /* Full height of the viewport */
+  padding: 20px;
+  background: linear-gradient(133.33deg, #E4E9E8 13.03%, #116660 78.83%);
+  border-radius: 20px; /* Rounded corners for the chat container */
+}
+
+.chat-window {
+  background: linear-gradient(133.33deg, #c9def4, #f5ccd4, #b8a4c9); /* Gradient background */
+  border-radius: 12px; /* Rounded corners for the chat window */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Slight shadow for depth */
+  width: 100%;
+  max-width: 900px; /* Limit max width for the chat window */
+  height: 400px; /* Set a fixed height for the chat window */
+  display: flex;
+  flex-direction: column;
+  overflow: hidden; /* Ensure content does not overflow */
+}
+
+.message-list {
+  flex: 1; /* Grow to take available space */
+  padding: 10px;
+  overflow-y: auto; /* Allow scrolling */
+}
+
+.message {
+  margin: 5px 0;
+  padding: 10px;
+  background-color:  #d6c3e2;; /* Light grey background for messages */
+  border-radius: 10px; /* Rounded corners for message bubbles */
+  max-width: 80%; /* Limit message bubble width */
+}
+
+.message-text {
+  color: #333; /* Dark text color */
+}
+
+.chat-form {
+  display: flex;
+  padding: 10px;
+  border-top: 1px solid #ccc; /* Divider line */
+  background: rgba(255, 255, 255, 0.9); /* Semi-transparent background for the form */
+}
+
+.chat-input {
+  flex: 1; /* Take up available space */
+  padding: 10px;
+  border: 1px solid #ccc; /* Border for input */
+  border-radius: 4px; /* Rounded corners for input */
+}
+
+.send-button {
+  padding: 10px 15px;
+  margin-left: 10px;
+  background-color: #1BA29A; /* Button background color */
+  color: #FFFFFF; /* Button text color */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners for button */
+  cursor: pointer; /* Change cursor to pointer on hover */
+  transition: background-color 0.3s; /* Smooth transition for hover */
+}
+
+.send-button:hover {
+  background-color: #0A3C39; /* Darker background on hover */
+}

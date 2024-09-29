@@ -1,0 +1,123 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Ensure this font is included */
+  }
+  
+  .login-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    width: 100vw;  /* Full viewport width */
+    height: 100vh; /* Full viewport height */
+    background: linear-gradient(133.33deg, #E4E9E8 13.03%, #116660 78.83%);
+  }
+  
+  .inner-frame {
+    display: flex;
+    border-radius: 20px; /* Rounded corners for the card effect */
+    backdrop-filter: blur(16.4px);
+    max-width: 1424px; /* Limit max width for the inner frame */
+    width: 80%; /* Use a percentage to make it more responsive */
+    height: auto; /* Allow height to be auto based on content */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2); /* Shadow for depth */
+    overflow: hidden; /* Ensure content does not overflow the rounded corners */
+  }
+  
+  .left-column {
+    flex: 1; /* Allow it to grow equally */
+    background: #FFFFFF; /* Color for the left column */
+    display: flex;
+    justify-content: center; /* Center content */
+    align-items: center; /* Center content */
+    flex-direction: column; /* Stack content vertically */
+    border-radius: 20px 0 0 20px; /* Rounded corners for the left side */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional shadow for depth */
+  }
+  
+  .right-column {
+    flex: 1; /* Allow it to grow equally */
+    background: #E4E9E8; /* Color for the right column */
+    display: flex;
+    justify-content: center; /* Center content */
+    align-items: center; /* Center content */
+    border-radius: 0 20px 20px 0; /* Rounded corners for the right side */
+  }
+  
+  .sign-in-rectangle {
+    width: 100%; /* Full width of the right column */
+    max-width: 400px; /* Optional: limit width for the sign-in form */
+    padding: 20px; /* Add padding for spacing */
+  }
+  
+  h2 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 20px; /* Space below the title */
+  }
+  
+  .input-group {
+    margin-bottom: 15px; /* Space between input groups */
+  }
+  
+  label {
+    font-size: 14px;
+    margin-bottom: 5px; /* Space between label and input */
+    display: block; /* Ensure labels are on their own line */
+  }
+  
+  input {
+    width: 100%; /* Full width inputs */
+    padding: 10px;
+    border-radius: 4px; /* Add rounded corners */
+    border: 1px solid #ccc; /* Add a border */
+  }
+  
+  /* Main login button style */
+  .login-button {
+    width: 100%; /* Make buttons the same width as input fields */
+    padding: 10px; /* Add some padding for better appearance */
+    margin-top: 15px; /* Space above each button */
+    margin-bottom: 5px; /* Space below each button */
+    background-color: #1BA29A; /* Button background color for login button */
+    color: #FFFFFF; /* Button text color for login button */
+    border: none; /* Remove default border */
+    border-radius: 25px; /* Increased border-radius for rounder corners */
+    cursor: pointer; /* Change cursor to pointer on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover */
+  }
+  
+  .login-button:hover {
+    background-color: #0A3C39; /* Change color on hover for login button */
+  }
+  
+  /* Style for guest and admin login buttons */
+  .signin-button {
+    width: 100%; /* Make buttons full width */
+    padding: 10px; /* Add padding */
+    margin-top: 10px; /* Space above each button */
+    margin-bottom: 10px; /* Space below each button */
+    background-color: #FFFFFF; /* White background */
+    color: #1BA29A; /* Green text color */
+    border: 2px solid #1BA29A; /* Green border */
+    border-radius: 25px; /* Increased border-radius for rounder corners */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  }
+  
+  .signin-button:hover {
+    background-color: #1BA29A; /* Change background to green on hover */
+    color: #FFFFFF; /* Change text color to white on hover */
+  }
+  
+  .input-group {
+    margin-bottom: 15px; /* Space below each input field */
+  }
+  .rectangle-35 {
+    width: 368px;
+    height: 213px;
+    background-color: #D9D9D9; /* Background color */
+    border-radius: 12px; /* Use small corner radius (var(--CornerSmall)) */
+    box-shadow: 0px 46px 28.5px -22px rgba(0, 0, 0, 0.16); /* Adjusted shadow */
+    opacity: 1; /* Ensure the opacity is visible */
+    margin-top: -150px; /* Add some space between the welcome text and the rectangle */
+  }
+  

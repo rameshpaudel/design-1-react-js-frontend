@@ -1,0 +1,86 @@
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Ensure this font is included */
+}
+
+.dashboard-container {
+    display: flex; /* Use flexbox for layout */
+    height: 100vh; /* Full viewport height */
+}
+
+.sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background: #0A3C39;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    padding: 20px; /* Padding inside the sidebar */
+}
+
+.admin-info {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below admin info */
+    justify-content: flex-start; /* Align items to the left */
+}
+
+.admin-pic {
+    width: 50px; /* Size of the picture */
+    height: 50px; /* Size of the picture */
+    border-radius: 50%; /* Circular picture */
+    background-color: #c9def4; /* Background color for the picture */
+    display: flex;
+    justify-content: center; /* Center text inside the circle */
+    align-items: center; /* Center text inside the circle */
+    font-size: 24px; /* Font size for initials */
+    color: #ffffff; /* Text color */
+}
+
+.admin-name {
+    margin-left: 10px; /* Space between pic and name */
+    font-size: 18px; /* Font size for admin name */
+    color: #ffffff; /* Text color */
+}
+
+.nav-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+}
+
+.nav-button {
+    background-color: transparent; /* Transparent background */
+    color: #ffffff; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    padding: 10px; /* Padding inside buttons */
+    margin: 5px 0; /* Space between buttons */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+}
+
+.nav-button:hover {
+    background-color: #1BA29A; /* Change background color on hover for buttons */
+}
+
+.nav-button.active {
+    background-color: #1BA29A; /* Change background color when active */
+    color: #ffffff; /* Keep text color */
+}
+
+.main-content {
+    flex: 1; /* Take remaining space */
+    padding: 20px; /* Padding for main content */
+    background: #f5f5f5; /* Light background for the main area */
+    color: #333; /* Text color for main content */
+}
+
+/* Ensure all header elements are left-aligned */
+header {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: flex-start; /* Align items to the left */
+    padding: 20px; /* Optional: Add padding to the header */
+}
+
+header .favicon {
+    margin-right: 10px; /* Space between favicon and text */
+}
