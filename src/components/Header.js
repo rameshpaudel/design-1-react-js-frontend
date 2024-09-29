@@ -1,17 +1,20 @@
-// src/Header.js
+// src/components/Header.js
 import React from 'react';
-import './Header.css'; // You can style the header here
+import { Link } from 'react-router-dom';
+import './Header.css'; // Add styles here
 
 const Header = () => {
-  return (
-    <div className="header">
-      <h1 style={{ float: 'left', margin: '0', padding: '20px' }}>Malware Pro</h1>
-      <div style={{ float: 'right', padding: '20px' }}>
-        <a href="/signin" style={{ margin: '0 10px' }}>Sign In</a>
-        <a href="/signup" style={{ margin: '0 10px' }}>Sign Up</a>
-      </div>
-    </div>
-  );
+    return (
+        <header className="header">
+            <Link to="/" className="logo" style={{ textDecoration: 'none', color: 'inherit' }}>
+                MalwarePro
+            </Link>
+            <nav>
+                <Link to="/login">Sign In</Link>
+                <Link to="/register">Sign Up</Link>
+            </nav>
+        </header>
+    );
 };
 
 export default Header;

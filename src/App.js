@@ -8,21 +8,16 @@ import AdminDashboard from './components/AdminDashboard';
 import Files from './components/Files';
 import UserManagement from './components/UserManagement';
 import Reports from './components/Reports';
-import FileUpload from './components/FileUpload'; // Import the FileUpload component
-
-
-
-
-
-import MainLandingPage from './components/MainLandingPage'; // Import the new component
-
+import FileUpload from './components/FileUpload';
+import Header from './components/Header';
+import LandingPage from './components/LandingPage';
 
 function App() {
     return (
         <Router>
             <div>
+                <Header /> {/* Place the Header here to show on all pages */}
                 <Routes>
-                <Route path="/" element={<MainLandingPage />} /> {/* Set this as the landing page */}
                     <Route path="/login" element={<Login />} />
                     <Route path="/register" element={<Register />} />
                     <Route path="/adminlogin" element={<AdministratorLogin />} />
@@ -31,10 +26,9 @@ function App() {
                     <Route path="/files" element={<Files />} />
                     <Route path="/user" element={<UserManagement />} />
                     <Route path="/reports" element={<Reports />} />
-                    <Route path="/upload" element={<FileUpload />} /> {/* Add this route */}
-
-
-                    {/* You can add other routes here */}
+                    <Route path="/upload" element={<FileUpload />} />
+                    <Route path="/" element={<LandingPage />} />
+                    {/* Remove the Header route, as it's not needed */}
                 </Routes>
             </div>
         </Router>

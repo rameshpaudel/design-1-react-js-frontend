@@ -1,0 +1,28 @@
+
+/* src/components/FileDisplay.css */
+.file-display {
+    max-width: 600px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+.file-display h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+.file-display ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.file-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+.file-item a {
+    color: #1BA29A;
+}

@@ -1,0 +1,24 @@
+.landing-page {
+    text-align: center;
+    padding: 20px;
+}
+
+.links-container {
+    margin-top: 20px;
+}
+
+.landing-link {
+    display: inline-block;
+    margin: 10px 15px;
+    padding: 10px 20px;
+    background-color: #1BA29A; /* Use your preferred color */
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.landing-link:hover {
+    background-color: #158F80; /* Darker shade on hover */
+    transform: scale(1.05);
+}
