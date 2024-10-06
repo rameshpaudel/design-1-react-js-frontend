@@ -1,10 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css'; // Import your CSS file
+import { Bar, Doughnut } from 'react-chartjs-2';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import './AdminDashboard.css';
+
+// Register the necessary components for Chart.js
+ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const AdminDashboard = () => {
-    const navigate = useNavigate(); // Initialize navigate for navigation
+    const navigate = useNavigate(); // Initialize navigate for navigation  
     const [activeButton, setActiveButton] = useState('Dashboard'); // Default active button
+
+    // Sample data for charts
+    const userData = {
+        labels: ['User 1', 'User 2', 'User 3', 'User 4', 'User 5'],
+        datasets: [
+            {
+                label: 'Number of Users',
+                data: [12, 19, 3, 5, 2],
+                backgroundColor: 'rgba(75, 192, 192, 0.6)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 1,
+            },
+        ],
+    };
+
+    const fileData = {
+        labels: ['Malicious', 'Safe'],
+        datasets: [
+            {
+                data: [30, 70],
+                backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)'],
+                hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
+            },
+        ],
+    };
 
     // Function to handle button click and navigate
     const handleButtonClick = (buttonName, route) => {
@@ -51,6 +81,16 @@ const AdminDashboard = () => {
             </aside>
             <main className="main-content">
                 <h1>Welcome to the Admin Dashboard</h1> {/* Main content header */}
+                <div className="charts-wrapper">
+                    <div className="chart-container">
+                        <h2>Number of Users</h2>
+                        <Bar data={userData} options={{ responsive: true }} />
+                    </div>
+                    <div className="chart-container">
+                        <h2>Status of Files</h2>
+                        <Doughnut data={fileData} options={{ responsive: true }} />
+                    </div>
+                </div>
             </main>
         </div>
     );

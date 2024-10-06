@@ -1,7 +1,7 @@
 .file-upload-container {
     max-width: 800px;
     margin: 0 auto;
-    margin-top: 40px; /* Adjust the value as needed */
+    margin-top: 40px;
     padding: 20px;
     background-color: #f5f5f5;
     border-radius: 10px;
@@ -15,8 +15,37 @@
     color: #333;
 }
 
+/* Tabs Styling */
+.tabs {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.tab {
+    padding: 10px 20px;
+    margin: 0 10px;
+    border: none;
+    background-color: #f0f0f0;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 4px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.tab.active {
+    background-color: #1BA29A;
+    color: white;
+}
+
+.tab:hover {
+    background-color: #0A3C39;
+    color: white;
+}
+
+/* Upload option blocks */
 .upload-option {
-    margin: 20px 0; /* Margin for spacing between upload options */
+    margin: 20px 0;
     padding: 20px;
     background-color: #ffffff;
     border: 1px solid #ddd;
@@ -52,8 +81,9 @@
     background-color: #0A3C39;
     opacity: 0.8;
 }
+
 body {
     background: linear-gradient(133.33deg, #E4E9E8 13.03%, #116660 78.83%);
     margin: 0;
-    font-family: Arial, sans-serif; /* Set a default font */
+    font-family: Arial, sans-serif;
 }

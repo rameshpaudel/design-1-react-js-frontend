@@ -1,26 +1,42 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import './Register.css'; // Import the CSS file
+import { useNavigate } from 'react-router-dom';
+import './Register.css';
 
 const Register = () => {
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
-  const navigate = useNavigate(); // Initialize useNavigate
+  const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      console.log('Passwords do not match!');
+      alert('Passwords do not match!'); // Feedback to user
       return;
     }
-    console.log('Registering with:', { fullName, email, password });
-  };
 
-  // Function to navigate to the Sign In page
-  const handleAdminLogin = () => {
-    navigate('/login'); // Navigate to the Sign In page
+    // Retrieve existing users from local storage
+    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
+
+    // Create new user object
+    const newUser = {
+      name: fullName,
+      email,
+      password, // Note: Storing passwords in plain text is not secure; consider better practices for real applications
+    };
+
+    // Add new user to the existing users array
+    existingUsers.push(newUser);
+
+    // Save updated users array back to local storage
+    localStorage.setItem('users', JSON.stringify(existingUsers));
+
+    // Save the userName to local storage for display in Header
+    localStorage.setItem('userName', fullName); // Store user's full name
+
+    console.log('Registered with:', { fullName, email });
+    navigate('/login'); // Redirect to the login page after registration
   };
 
   return (
@@ -28,23 +44,29 @@ const Register = () => {
       <div className="inner-frame">
         <div className="left-column">
           <div className="sign-in-rectangle">
-            <h2 style={{
-              background: 'linear-gradient(292.13deg, #0A3C39 1.22%, #1BA29A 104.6%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              textAlign: 'left',
-              marginBottom: '20px',
-            }}>Malware Pro</h2>
+            <h2
+              style={{
+                background: 'linear-gradient(292.13deg, #0A3C39 1.22%, #1BA29A 104.6%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                textAlign: 'left',
+                marginBottom: '20px',
+              }}
+            >
+              Malware Pro
+            </h2>
             <h3>Register an Account</h3>
-            <p style={{
-              fontSize: '12px',
-              color: '#333',
-              textAlign: 'left',
-              marginBottom: '10px',
-            }}>
+            <p
+              style={{
+                fontSize: '12px',
+                color: '#333',
+                textAlign: 'left',
+                marginBottom: '10px',
+              }}
+            >
               Create an account to access our Malware Pro features.
             </p>
-            
+
             <form onSubmit={handleSubmit} className="login-form">
               <div className="input-group">
                 <label>Full Name</label>
@@ -87,7 +109,7 @@ const Register = () => {
                 />
               </div>
               <button type="submit" className="login-button">Register</button>
-              <button type="button" className="admin-button" onClick={handleAdminLogin}>
+              <button type="button" className="admin-button" onClick={() => navigate('/login')}>
                 Sign In
               </button>
             </form>

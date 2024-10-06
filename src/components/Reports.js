@@ -1,14 +1,26 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './AdminDashboard.css'; // Import your CSS file
 
 const Reports = () => {
     const navigate = useNavigate(); // Initialize navigate for navigation
-    const [activeButton, setActiveButton] = useState('Dashboard'); // Default active button
+    const [activeButton, setActiveButton] = useState('Reports'); // Default active button
+    const [reports, setReports] = useState([]); // State to hold reports data
+
+    // Sample data for reports (this would typically come from an API)
+    useEffect(() => {
+        // Replace with API call to fetch reports
+        const fetchedReports = [
+            { id: 1, file: 'file1.exe', status: 'Malicious', date: '2024-10-01' },
+            { id: 2, file: 'file2.pdf', status: 'Safe', date: '2024-10-02' },
+            { id: 3, file: 'file3.zip', status: 'Malicious', date: '2024-10-03' },
+            { id: 4, file: 'file4.docx', status: 'Safe', date: '2024-10-04' },
+        ];
+        setReports(fetchedReports);
+    }, []);
 
     // Function to handle button click and navigate
     const handleButtonClick = (buttonName, route) => {
-        // Navigate to the corresponding route
         navigate(route);
         setActiveButton(buttonName); // Set the active button
     };
@@ -50,7 +62,29 @@ const Reports = () => {
                 </nav>
             </aside>
             <main className="main-content">
-                <h1>Welcome to the Reports</h1> {/* Main content header */}
+                <h1>Scan Reports</h1>
+                <div className="reports-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>File Name</th>
+                                <th>Status</th>
+                                <th>Date Scanned</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {reports.map(report => (
+                                <tr key={report.id}>
+                                    <td>{report.file}</td>
+                                    <td className={report.status === 'Malicious' ? 'malicious' : 'safe'}>
+                                        {report.status}
+                                    </td>
+                                    <td>{report.date}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </table>
+                </div>
             </main>
         </div>
     );

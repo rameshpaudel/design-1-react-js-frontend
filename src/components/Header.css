@@ -1,20 +1,40 @@
-/* src/components/Header.css */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: linear-gradient(90deg, #1BA29A, #0A3C39);
-    padding: 20px;
-    color: white;
+    padding: 10px 20px;
+    background-color: #0A3C39; /* Header background color */
+    color: white; /* Text color */
 }
 
-.header .logo {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.header nav a {
-    color: white;
-    margin: 0 15px;
+.logo {
     text-decoration: none;
+    font-size: 24px;
+    color: white; /* Logo color */
+}
+
+.nav {
+    display: flex;
+    align-items: center;
+}
+
+.nav-link {
+    margin: 0 10px;
+    text-decoration: none;
+    color: white; /* Link color */
+}
+
+.logout-button {
+    margin-left: 10px;
+    background-color: #1BA29A; /* Logout button color */
+    color: white; /* Button text color */
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    border-radius: 4px; /* Rounded corners */
+}
+
+.user-name {
+    margin-right: 10px;
+    color: white; /* User name color */
 }

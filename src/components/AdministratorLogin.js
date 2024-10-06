@@ -1,30 +1,31 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
 import './AdministratorLogin.css'; // Import the CSS file
 
-const Login = () => {
+const AdministratorLogin = ({ setIsAdmin }) => { // Accept setIsAdmin as a prop
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [isAdmin, setIsAdmin] = useState(false);
+  const navigate = useNavigate(); // Initialize useNavigate
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (isAdmin) {
-      console.log('Logging in as Admin with:', { email, password });
-      // Handle Admin login logic here
+    
+    // Admin credentials
+    const adminEmail = 'admin@example.com';
+    const adminPassword = 'admin123';
+
+    // Check if the input matches admin credentials
+    if (email === adminEmail && password === adminPassword) {
+      // Save admin token in local storage
+      localStorage.setItem('adminToken', email); // Example token; ideally use a more secure method
+      console.log('Logged in as Admin:', { email });
+
+      setIsAdmin(true); // Update admin state
+      navigate('/admindash'); // Redirect to the admin dashboard
     } else {
-      console.log('Logging in with:', { email, password });
-      // Handle regular user login logic here
+      console.log('Invalid login credentials');
+      alert('Invalid email or password. Please try again.');
     }
-  };
-
-  const handleAdminLogin = () => {
-    setIsAdmin(true);
-    console.log('Switched to Admin Login Mode');
-  };
-
-  const handleGuestLogin = () => {
-    setIsAdmin(false);
-    console.log('Switched to Guest Login Mode');
   };
 
   return (
@@ -43,7 +44,7 @@ const Login = () => {
             >
               Malware Pro
             </h2>
-            <h3>{isAdmin ? 'Administrator Login' : 'Administrator Login'}</h3>
+            <h3>Administrator Login</h3>
             <p
               style={{
                 fontSize: '12px',
@@ -52,7 +53,7 @@ const Login = () => {
                 marginBottom: '10px',
               }}
             >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Please enter your admin credentials.
             </p>
 
             <form onSubmit={handleSubmit} className="login-form">
@@ -77,11 +78,9 @@ const Login = () => {
                 />
               </div>
               <button type="submit" className="login-button">
-                {isAdmin ? 'Login as Admin' : 'Login'}
+                Login as Admin
               </button>
             </form>
-
-         
           </div>
         </div>
         <div className="right-column">
@@ -92,4 +91,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default AdministratorLogin;

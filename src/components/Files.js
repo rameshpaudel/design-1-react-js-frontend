@@ -1,10 +1,19 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css'; // Import your CSS file
+import './FilesManagement.css'; // Import your new CSS file
 
 const FilesManagement = () => {
     const navigate = useNavigate(); // Initialize navigate for navigation
-    const [activeButton, setActiveButton] = useState('Dashboard'); // Default active button
+    const [activeButton, setActiveButton] = useState('File Management'); // Default active button
+
+    // Dummy files data
+    const dummyFiles = [
+        { id: 1, name: 'Report1.pdf', date: '2024-10-01', size: '2 MB', maliciousSafe: true },
+        { id: 2, name: 'Presentation.pptx', date: '2024-09-25', size: '5 MB', maliciousSafe: false },
+        { id: 3, name: 'Data.xlsx', date: '2024-09-20', size: '3 MB', maliciousSafe: true },
+        { id: 4, name: 'Image.png', date: '2024-09-18', size: '1 MB', maliciousSafe: false },
+        { id: 5, name: 'Document.docx', date: '2024-09-15', size: '2.5 MB', maliciousSafe: true },
+    ];
 
     // Function to handle button click and navigate
     const handleButtonClick = (buttonName, route) => {
@@ -50,7 +59,38 @@ const FilesManagement = () => {
                 </nav>
             </aside>
             <main className="main-content">
-                <h1>Welcome to the Files Management</h1> {/* Main content header */}
+                <h1>Welcome to Files Management</h1> {/* Main content header */}
+                <p className="welcome-message">Here you can manage all your files effectively.</p>
+
+                {/* Dummy Files Table */}
+                <table className="files-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Name</th>
+                            <th>Date Uploaded</th>
+                            <th>Size</th>
+                            <th>Malicious Safe</th> {/* New header for Malicious Safe */}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {dummyFiles.map(file => (
+                            <tr key={file.id}>
+                                <td>{file.id}</td>
+                                <td>{file.name}</td>
+                                <td>{file.date}</td>
+                                <td>{file.size}</td>
+                                <td>
+                                    {file.maliciousSafe ? (
+                                        <span className="status-safe">✅ Safe</span>
+                                    ) : (
+                                        <span className="status-malicious">❌ Malicious</span>
+                                    )}
+                                </td>
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
             </main>
         </div>
     );

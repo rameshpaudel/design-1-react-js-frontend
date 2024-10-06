@@ -1,0 +1,153 @@
+/* FilesManagement.css */
+
+/* Body Styles */
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif; /* Ensure this font is included */
+}
+
+/* Dashboard Container Styles */
+.dashboard-container {
+    display: flex; /* Use flexbox for layout */
+    height: 100vh; /* Full viewport height */
+}
+
+/* Sidebar Styles */
+.sidebar {
+    width: 250px; /* Fixed width for the sidebar */
+    background: #0A3C39;
+    display: flex;
+    flex-direction: column; /* Stack items vertically */
+    padding: 20px; /* Padding inside the sidebar */
+}
+
+/* Admin Info Styles */
+.admin-info {
+    display: flex;
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below admin info */
+    justify-content: flex-start; /* Align items to the left */
+}
+
+/* Admin Picture Styles */
+.admin-pic {
+    width: 50px; /* Size of the picture */
+    height: 50px; /* Size of the picture */
+    border-radius: 50%; /* Circular picture */
+    background-color: #c9def4; /* Background color for the picture */
+    display: flex;
+    justify-content: center; /* Center text inside the circle */
+    align-items: center; /* Center text inside the circle */
+    font-size: 24px; /* Font size for initials */
+    color: #ffffff; /* Text color */
+}
+
+/* Admin Name Styles */
+.admin-name {
+    margin-left: 10px; /* Space between pic and name */
+    font-size: 18px; /* Font size for admin name */
+    color: #ffffff; /* Text color */
+}
+
+/* Navigation Buttons Styles */
+.nav-buttons {
+    display: flex;
+    flex-direction: column; /* Stack buttons vertically */
+}
+
+.nav-button {
+    background-color: transparent; /* Transparent background */
+    color: #ffffff; /* Button text color */
+    border: none; /* Remove default border */
+    border-radius: 5px; /* Rounded corners for buttons */
+    padding: 10px; /* Padding inside buttons */
+    margin: 5px 0; /* Space between buttons */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
+}
+
+.nav-button:hover {
+    background-color: #1BA29A; /* Change background color on hover for buttons */
+}
+
+.nav-button.active {
+    background-color: #1BA29A; /* Change background color when active */
+    color: #ffffff; /* Keep text color */
+}
+
+/* Main Content Styles */
+.main-content {
+    flex: 1; /* Take remaining space */
+    padding: 20px; /* Padding for main content */
+    background: #f5f5f5; /* Light background for the main area */
+    color: #333; /* Text color for main content */
+}
+
+/* Header Styles */
+header {
+    display: flex; /* Use flexbox for layout */
+    align-items: center; /* Center items vertically */
+    justify-content: flex-start; /* Align items to the left */
+    padding: 20px; /* Optional: Add padding to the header */
+}
+
+header .favicon {
+    margin-right: 10px; /* Space between favicon and text */
+}
+/* FilesManagement.css */
+
+/* Table Styles */
+.files-table {
+    width: 100%; /* Full width of the parent container */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+.files-table th, .files-table td {
+    padding: 10px; /* Padding for table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Light border for table rows */
+}
+
+.files-table th {
+    background-color: #0A3C39; /* Header background color */
+    color: #ffffff; /* Header text color */
+}
+
+.files-table tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+}
+/* FilesManagement.css */
+
+/* Table Styles */
+.files-table {
+    width: 100%; /* Full width of the parent container */
+    border-collapse: collapse; /* Merge borders */
+    margin-top: 20px; /* Space above the table */
+}
+
+.files-table th, .files-table td {
+    padding: 10px; /* Padding for table cells */
+    text-align: left; /* Align text to the left */
+    border-bottom: 1px solid #ddd; /* Light border for table rows */
+}
+
+.files-table th {
+    background-color: #0A3C39; /* Header background color */
+    color: #ffffff; /* Header text color */
+}
+
+.files-table tr:hover {
+    background-color: #f1f1f1; /* Highlight row on hover */
+}
+
+/* Status Indicator Styles */
+.status-safe {
+    color: green; /* Color for safe status */
+    font-weight: bold; /* Make safe text bold */
+}
+
+.status-malicious {
+    color: red; /* Color for malicious status */
+    font-weight: bold; /* Make malicious text bold */
+}

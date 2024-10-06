@@ -1,86 +1,74 @@
-body {
-    margin: 0;
-    font-family: 'Poppins', sans-serif; /* Ensure this font is included */
-}
-
 .dashboard-container {
-    display: flex; /* Use flexbox for layout */
-    height: 100vh; /* Full viewport height */
+    display: flex; /* Flexbox for layout */
 }
 
 .sidebar {
-    width: 250px; /* Fixed width for the sidebar */
-    background: #0A3C39;
-    display: flex;
-    flex-direction: column; /* Stack items vertically */
-    padding: 20px; /* Padding inside the sidebar */
-}
-
-.admin-info {
-    display: flex;
-    align-items: center; /* Center items vertically */
-    margin-bottom: 20px; /* Space below admin info */
-    justify-content: flex-start; /* Align items to the left */
-}
-
-.admin-pic {
-    width: 50px; /* Size of the picture */
-    height: 50px; /* Size of the picture */
-    border-radius: 50%; /* Circular picture */
-    background-color: #c9def4; /* Background color for the picture */
-    display: flex;
-    justify-content: center; /* Center text inside the circle */
-    align-items: center; /* Center text inside the circle */
-    font-size: 24px; /* Font size for initials */
-    color: #ffffff; /* Text color */
-}
-
-.admin-name {
-    margin-left: 10px; /* Space between pic and name */
-    font-size: 18px; /* Font size for admin name */
-    color: #ffffff; /* Text color */
-}
-
-.nav-buttons {
-    display: flex;
-    flex-direction: column; /* Stack buttons vertically */
-}
-
-.nav-button {
-    background-color: transparent; /* Transparent background */
-    color: #ffffff; /* Button text color */
-    border: none; /* Remove default border */
-    border-radius: 5px; /* Rounded corners for buttons */
-    padding: 10px; /* Padding inside buttons */
-    margin: 5px 0; /* Space between buttons */
-    cursor: pointer; /* Change cursor on hover */
-    transition: background-color 0.3s, color 0.3s; /* Smooth transition for hover */
-}
-
-.nav-button:hover {
-    background-color: #1BA29A; /* Change background color on hover for buttons */
-}
-
-.nav-button.active {
-    background-color: #1BA29A; /* Change background color when active */
-    color: #ffffff; /* Keep text color */
+    width: 450px; /* Fixed width for sidebar */
+    height: 100vh; /* Full height */
+    background-color: #0A3C39; /* Sidebar color */
+    color: white; /* Text color */
+    padding: 20px; /* Padding for sidebar */
 }
 
 .main-content {
-    flex: 1; /* Take remaining space */
+    flex-grow: 1; /* Allow main content to grow */
     padding: 20px; /* Padding for main content */
-    background: #f5f5f5; /* Light background for the main area */
-    color: #333; /* Text color for main content */
+    background-color: #f9f9f9; /* Background color for main content */
 }
 
-/* Ensure all header elements are left-aligned */
-header {
-    display: flex; /* Use flexbox for layout */
-    align-items: center; /* Center items vertically */
-    justify-content: flex-start; /* Align items to the left */
-    padding: 20px; /* Optional: Add padding to the header */
+.charts-wrapper {
+    display: flex; /* Flexbox for chart alignment */
+    justify-content: space-between; /* Space between charts */
+    margin-top: 20px; /* Space above charts */
 }
 
-header .favicon {
-    margin-right: 10px; /* Space between favicon and text */
+.chart-container {
+    width: 45%; /* Width of each chart container */
+    background: white; /* Background color for charts */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding inside chart container */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+.admin-info {
+    text-align: center; /* Center align admin info */
+}
+
+.admin-pic {
+    margin-bottom: 10px; /* Space below admin picture */
+}
+
+.admin-circle {
+    width: 70px; /* Circle width */
+    height: 70px; /* Circle height */
+    border-radius: 50%; /* Make it circular */
+    background-color: #1BA29A; /* Circle color */
+    display: flex; /* Flexbox for centering text */
+    align-items: center; /* Vertical alignment */
+    justify-content: center; /* Horizontal alignment */
+    color: white; /* Text color */
+    font-size: 24px; /* Text size */
+}
+
+.nav-buttons {
+    margin-top: 20px; /* Space above navigation buttons */
+}
+
+.nav-button {
+    width: 100%; /* Full width for buttons */
+    padding: 10px; /* Padding for buttons */
+    margin: 5px 0; /* Space between buttons */
+    background-color: #1BA29A; /* Button color */
+    color: white; /* Text color */
+    border: none; /* No border */
+    border-radius: 5px; /* Rounded corners */
+    cursor: pointer; /* Pointer cursor */
+}
+
+.nav-button.active {
+    background-color: #007B7F; /* Active button color */
+}
+
+.nav-button i {
+    margin-right: 8px; /* Space between icon and text */
 }

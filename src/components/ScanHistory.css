@@ -1,0 +1,52 @@
+.scan-history-container {
+    max-width: 900px;
+    margin: 0 auto;
+    margin-top: 40px;
+    padding: 20px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.scan-history-title {
+    font-size: 24px;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.scan-history-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.scan-history-table th, 
+.scan-history-table td {
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    text-align: left;
+}
+
+.scan-history-table th {
+    background-color: #0A3C39;
+    color: white;
+}
+
+.scan-history-table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.scan-history-table tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.scan-history-table td.safe {
+    color: green;
+    font-weight: bold;
+}
+
+.scan-history-table td.malicious {
+    color: red;
+    font-weight: bold;
+}

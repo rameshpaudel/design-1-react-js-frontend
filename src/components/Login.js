@@ -1,21 +1,38 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
-import './Login.css'; // Import the CSS file
+import { useNavigate } from 'react-router-dom';
+import './Login.css';
 
-const Login = () => {
+const Login = ({ setIsAuthenticated }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate(); // useNavigate to programmatically navigate
+  const navigate = useNavigate();
 
-  // Function to handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Logging in with:', { email, password });
-  };
+    
+    // Retrieve stored users from local storage
+    const users = JSON.parse(localStorage.getItem('users')) || [];
 
-  // Function to handle Admin Login button click
-  const handleAdminLogin = () => {
-    navigate('/adminlogin'); // Navigate to the admin login page
+    // Check if user exists with the entered email and password
+    const user = users.find((u) => u.email === email && u.password === password);
+
+    if (user) {
+        console.log('Logging in with:', { email, password });
+        localStorage.setItem('userToken', email); // Store the email as token
+        setIsAuthenticated(true); // Update authentication state
+        navigate('/'); // Redirect to the home page
+    } else {
+        console.error('Invalid email or password');
+        alert('Invalid email or password. Please try again.'); // User feedback
+    }
+};
+
+
+  const handleGuestLogin = () => {
+    // Logic for guest login can go here if needed
+    console.log('Logged in as a guest');
+    setIsAuthenticated(true);
+    navigate('/'); // Redirect to the home page as a guest
   };
 
   return (
@@ -37,7 +54,7 @@ const Login = () => {
               textAlign: 'left',
               marginBottom: '10px',
             }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit.
             </p>
             
             <form onSubmit={handleSubmit} className="login-form">
@@ -62,9 +79,10 @@ const Login = () => {
                 />
               </div>
               <button type="submit" className="login-button">Login</button>
-
-              <button type="button" className="guest-button">Login as a Guest</button>
-              <button type="button" className="admin-button" onClick={handleAdminLogin}>
+              <button type="button" className="guest-button" onClick={handleGuestLogin}>
+                Login as a Guest
+              </button>
+              <button type="button" className="admin-button" onClick={() => navigate('/adminlogin')}>
                 Administrator Login
               </button>
             </form>
