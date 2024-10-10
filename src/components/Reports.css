@@ -1,93 +1,96 @@
 .dashboard-container {
     display: flex;
-    height: 100vh;
+    height: 100vh; /* Full height */
 }
 
 .sidebar {
-    width: 250px;
-    background-color: #0A3C39;
-    color: #fff;
-    padding: 20px;
+    width: 250px; /* Fixed width for sidebar */
+    background-color: #0A3C39; /* Sidebar background color */
+    color: #fff; /* Text color */
+    padding: 20px; /* Padding inside sidebar */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    position: relative; /* Position for absolute elements inside */
 }
 
 .admin-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+    display: flex; /* Flex layout for admin info */
+    align-items: center; /* Center items vertically */
+    margin-bottom: 20px; /* Space below */
 }
 
 .admin-pic {
-    margin-right: 10px;
+    margin-right: 10px; /* Space between picture and name */
 }
 
 .admin-circle {
-    width: 40px;
-    height: 40px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #0A3C39;
-    font-weight: bold;
+    width: 40px; /* Circle width */
+    height: 40px; /* Circle height */
+    background-color: #fff; /* Circle background */
+    border-radius: 50%; /* Make it circular */
+    display: flex; /* Flex layout for centering text */
+    align-items: center; /* Center text vertically */
+    justify-content: center; /* Center text horizontally */
+    color: #0A3C39; /* Text color */
+    font-weight: bold; /* Bold text */
 }
 
 .nav-buttons {
-    display: flex;
-    flex-direction: column;
+    display: flex; /* Flex layout for navigation buttons */
+    flex-direction: column; /* Arrange buttons vertically */
 }
 
 .nav-button {
-    background: none;
-    border: none;
-    color: #fff;
-    padding: 10px;
-    text-align: left;
-    cursor: pointer;
+    background: none; /* No background */
+    border: none; /* No border */
+    color: #fff; /* Text color */
+    padding: 10px; /* Padding around text */
+    text-align: left; /* Align text to the left */
+    cursor: pointer; /* Change cursor on hover */
+    transition: background-color 0.3s; /* Smooth transition for hover effect */
 }
 
 .nav-button:hover {
-    background-color: rgba(255, 255, 255, 0.2);
+    background-color: rgba(255, 255, 255, 0.2); /* Hover background color */
 }
 
 .nav-button.active {
-    background-color: #1BA29A;
+    background-color: #1BA29A; /* Active button background */
 }
 
 .main-content {
-    flex: 1;
-    padding: 20px;
-    background-color: #f4f4f4;
+    flex: 1; /* Fill remaining space */
+    padding: 20px; /* Padding around main content */
+    background-color: #f4f4f4; /* Main content background */
 }
 
 .reports-table {
-    margin-top: 20px;
+    margin-top: 20px; /* Space above reports table */
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse;
+    width: 100%; /* Full width */
+    border-collapse: collapse; /* Merge borders */
 }
 
 th, td {
-    border: 1px solid #ddd;
-    padding: 8px;
-    text-align: left;
+    border: 1px solid #ddd; /* Table cell border */
+    padding: 8px; /* Padding inside cells */
+    text-align: left; /* Align text to the left */
 }
 
 th {
-    background-color: #0A3C39;
-    color: white;
+    background-color: #0A3C39; /* Header background color */
+    color: white; /* Header text color */
 }
 
 tr:hover {
-    background-color: #f1f1f1;
+    background-color: #f1f1f1; /* Row hover effect */
 }
 
 .safe {
-    color: green;
+    color: green; /* Color for safe status */
 }
 
 .malicious {
-    color: red;
+    color: red; /* Color for malicious status */
 }

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
@@ -10,14 +10,28 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend,
 const AdminDashboard = () => {
     const navigate = useNavigate(); // Initialize navigate for navigation  
     const [activeButton, setActiveButton] = useState('Dashboard'); // Default active button
+    const [userCount, setUserCount] = useState(0); // State to store the number of users
+    const [fileData, setFileData] = useState({ malicious: 0, safe: 0 }); // State to store file data
 
-    // Sample data for charts
+    useEffect(() => {
+        // Fetch user data from local storage when the component mounts
+        const users = JSON.parse(localStorage.getItem('users')) || [];
+        setUserCount(users.length); // Update the user count state
+
+        // Fetch file data from local storage
+        const files = JSON.parse(localStorage.getItem('scannedFiles')) || [];
+        const maliciousCount = files.filter(file => !file.maliciousSafe).length; // Count malicious files
+        const safeCount = files.filter(file => file.maliciousSafe).length; // Count safe files
+        setFileData({ malicious: maliciousCount, safe: safeCount }); // Update the file data state
+    }, []);
+
+    // Sample data for charts with dynamic user count
     const userData = {
-        labels: ['User 1', 'User 2', 'User 3', 'User 4', 'User 5'],
+        labels: ['Total Users'], // Single label for total users
         datasets: [
             {
                 label: 'Number of Users',
-                data: [12, 19, 3, 5, 2],
+                data: [userCount], // Update the data to reflect the actual user count
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -25,11 +39,12 @@ const AdminDashboard = () => {
         ],
     };
 
-    const fileData = {
+    // Update fileData for charts
+    const chartFileData = {
         labels: ['Malicious', 'Safe'],
         datasets: [
             {
-                data: [30, 70],
+                data: [fileData.malicious, fileData.safe], // Use the actual file counts
                 backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)'],
                 hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
             },
@@ -38,8 +53,7 @@ const AdminDashboard = () => {
 
     // Function to handle button click and navigate
     const handleButtonClick = (buttonName, route) => {
-        // Navigate to the corresponding route
-        navigate(route);
+        navigate(route); // Navigate to the corresponding route
         setActiveButton(buttonName); // Set the active button
     };
 
@@ -88,7 +102,7 @@ const AdminDashboard = () => {
                     </div>
                     <div className="chart-container">
                         <h2>Status of Files</h2>
-                        <Doughnut data={fileData} options={{ responsive: true }} />
+                        <Doughnut data={chartFileData} options={{ responsive: true }} />
                     </div>
                 </div>
             </main>

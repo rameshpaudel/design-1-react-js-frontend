@@ -1,40 +1,83 @@
+/* Header styles */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 10px 20px;
-    background-color: #0A3C39; /* Header background color */
-    color: white; /* Text color */
-}
-
-.logo {
-    text-decoration: none;
+    background-color: #0A3C39;
+  }
+  
+  .logo {
     font-size: 24px;
-    color: white; /* Logo color */
-}
-
-.nav {
+    color: white;
+    text-decoration: none;
+  }
+  
+  .nav {
     display: flex;
     align-items: center;
-}
-
-.nav-link {
-    margin: 0 10px;
+  }
+  
+  .nav-link {
+    margin-right: 20px;
+    color: white;
     text-decoration: none;
-    color: white; /* Link color */
-}
-
-.logout-button {
-    margin-left: 10px;
-    background-color: #1BA29A; /* Logout button color */
-    color: white; /* Button text color */
+  }
+  
+  .user-name {
+    color: white;
+    margin-right: 20px;
+  }
+  
+  .logout-button, .history-button {
+    background: none;
     border: none;
-    padding: 8px 12px;
+    color: white;
     cursor: pointer;
-    border-radius: 4px; /* Rounded corners */
-}
-
-.user-name {
     margin-right: 10px;
-    color: white; /* User name color */
-}
+    padding: 8px 16px;
+    font-size: 16px;
+  }
+  
+  .dropdown-container {
+    position: relative;
+  }
+  
+  .dropdown-content {
+    position: absolute;
+    top: 45px;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    min-width: 150px;
+    z-index: 1;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+  }
+  
+  .dropdown-content .nav-link {
+    display: block;
+    padding: 8px 12px;
+    color: #333;
+    text-decoration: none;
+  }
+  
+  .dropdown-content .nav-link:hover {
+    background-color: #f1f1f1; /* Add hover effect */
+  }
+  
+  .dropdown-content button {
+    background: none;
+    border: none;
+    color: #333;
+    padding: 10px;
+    text-align: left;
+    width: 100%;
+    cursor: pointer;
+  }
+  
+  .dropdown-content button:hover {
+    background-color: #f1f1f1; /* Add hover effect */
+  }
+  

@@ -12,6 +12,7 @@ import FileUpload from './components/FileUpload';
 import Header from './components/Header';
 import LandingPage from './components/LandingPage';
 import ScanHistory from './components/ScanHistory';
+import LoginHistory from './components/LoginHistory'; // Import the component
 
 function App() {
     const [isAuthenticated, setIsAuthenticated] = useState(!!localStorage.getItem('userToken')); // Check local storage for user token
@@ -20,24 +21,25 @@ function App() {
     return (
         <Router>
             <div>
-                <Header setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} /> {/* Ensure this is passed correctly */}
+                <Header setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} />
                 <Routes>
-                    <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} />} />
+                    {/* User Routes */}
+                    <Route path="/login" element={<Login setIsAuthenticated={setIsAuthenticated} setIsAdmin={setIsAdmin} />} />
                     <Route path="/register" element={<Register />} />
-                   
+                    <Route path="/login-history" element={isAuthenticated || isAdmin ? <LoginHistory /> : <Navigate to="/login" />} />
+                    <Route path="/scan-history" element={isAuthenticated || isAdmin ? <ScanHistory /> : <Navigate to="/login" />} />
                     <Route path="/upload" element={isAuthenticated ? <FileUpload /> : <Navigate to="/login" />} />
-                    <Route path="/scan-history" element={isAuthenticated ? <ScanHistory /> : <Navigate to="/login" />} />
-                    
-                    {/* Admin routes */}
-                    <Route path="/adminlogin" element={<AdministratorLogin setIsAdmin={setIsAdmin} />} />                    <Route path="/admindash" element={isAdmin ? <AdminDashboard /> : <Navigate to="/adminlogin" />} />
+
+                    {/* Admin Routes */}
+                    <Route path="/adminlogin" element={<AdministratorLogin setIsAdmin={setIsAdmin} />} />
+                    <Route path="/admindash" element={isAdmin ? <AdminDashboard /> : <Navigate to="/adminlogin" />} />
                     <Route path="/files" element={isAdmin ? <Files /> : <Navigate to="/adminlogin" />} />
                     <Route path="/user" element={isAdmin ? <UserManagement /> : <Navigate to="/adminlogin" />} />
                     <Route path="/reports" element={isAdmin ? <Reports /> : <Navigate to="/adminlogin" />} />
                     
-                    {/* Public routes */}
+                    {/* Public Routes */}
                     <Route path="/" element={<LandingPage />} />
                     <Route path="/chat" element={<Chat />} />
-                  
                 </Routes>
             </div>
         </Router>

@@ -25,14 +25,19 @@ const Header = ({ setIsAuthenticated, setIsAdmin }) => {
         {localStorage.getItem('userToken') || isAdmin ? (
           <>
             <span className="user-name">{isAdmin ? 'Welcome Admin' : `Welcome, ${userName}`}</span>
-            {!isAdmin && (
-              <Link to="/scan-history" className="nav-link scan-history-link">
-                Scan History
-              </Link>
-            )}
-            <button className="logout-button" onClick={handleLogout}>
-              Logout
-            </button>
+            <div className="dropdown-container">
+              <button className="logout-button" onClick={handleLogout}>
+                Logout
+              </button>
+              <div className="dropdown-content">
+                {/* Link to Admin Dashboard for Admin users */}
+                {isAdmin && (
+                  <Link to="/admindash" className="nav-link">Admin Dashboard</Link>
+                )}
+                <Link to="/login-history" className="nav-link">Login History</Link>
+                <Link to="/scan-history" className="nav-link">Scan History</Link>
+              </div>
+            </div>
           </>
         ) : (
           <>

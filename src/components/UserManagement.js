@@ -6,7 +6,7 @@ const UserManagement = () => {
   const navigate = useNavigate(); // Initialize navigate for navigation
   const [activeButton, setActiveButton] = useState('User Management'); // Set default active button
   const [users, setUsers] = useState([]);
-  const [newUser, setNewUser] = useState({ name: '', email: '' }); // State for new user input
+  const [newUser, setNewUser] = useState({ name: '', email: '', password: '' }); // State for new user input
   const [showAddUserForm, setShowAddUserForm] = useState(false); // State for showing the form
 
   // Fetch users from localStorage on component mount
@@ -34,11 +34,11 @@ const UserManagement = () => {
 
   // Handle user addition
   const handleAddUser = () => {
-    if (newUser.name && newUser.email) {
+    if (newUser.name && newUser.email && newUser.password) {
       const updatedUsers = [...users, newUser];
       setUsers(updatedUsers);
       localStorage.setItem('users', JSON.stringify(updatedUsers)); // Update localStorage
-      setNewUser({ name: '', email: '' }); // Reset form
+      setNewUser({ name: '', email: '', password: '' }); // Reset form
       setShowAddUserForm(false); // Close form
     } else {
       alert('Please fill in all fields.'); // Alert if fields are empty
@@ -111,7 +111,13 @@ const UserManagement = () => {
               value={newUser.email} 
               onChange={(e) => setNewUser({ ...newUser, email: e.target.value })} 
             />
-            <button class="add-user-button" onClick={handleAddUser}>Add</button>
+            <input 
+              type="password" 
+              placeholder="Password" 
+              value={newUser.password} 
+              onChange={(e) => setNewUser({ ...newUser, password: e.target.value })} 
+            />
+            <button className="add-user-button" onClick={handleAddUser}>Add</button>
             <button onClick={() => setShowAddUserForm(false)}>Cancel</button>
           </div>
         )}

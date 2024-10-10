@@ -1,22 +1,43 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import './AdminDashboard.css'; // Import your CSS file
+import './Reports.css'; // Import your CSS file
 
 const Reports = () => {
     const navigate = useNavigate(); // Initialize navigate for navigation
     const [activeButton, setActiveButton] = useState('Reports'); // Default active button
     const [reports, setReports] = useState([]); // State to hold reports data
+    const [loading, setLoading] = useState(true); // State to manage loading state
+    const [error, setError] = useState(null); // State to manage error
 
-    // Sample data for reports (this would typically come from an API)
     useEffect(() => {
-        // Replace with API call to fetch reports
-        const fetchedReports = [
-            { id: 1, file: 'file1.exe', status: 'Malicious', date: '2024-10-01' },
-            { id: 2, file: 'file2.pdf', status: 'Safe', date: '2024-10-02' },
-            { id: 3, file: 'file3.zip', status: 'Malicious', date: '2024-10-03' },
-            { id: 4, file: 'file4.docx', status: 'Safe', date: '2024-10-04' },
-        ];
-        setReports(fetchedReports);
+        // Fetch reports from a dummy API
+        const fetchReports = async () => {
+            try {
+                setLoading(true); // Start loading
+                // Using a dummy API endpoint for testing
+                const response = await fetch('https://jsonplaceholder.typicode.com/posts'); // Replace with your API URL
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                
+                // Transforming dummy data to match your report structure
+                const transformedReports = data.slice(0, 5).map((item, index) => ({
+                    id: index + 1,
+                    file: item.title, // Using title as a file name
+                    status: index % 2 === 0 ? 'Malicious' : 'Safe', // Alternating status for testing
+                    date: new Date().toLocaleDateString(), // Current date
+                }));
+
+                setReports(transformedReports); // Set the fetched reports
+            } catch (err) {
+                setError('Failed to fetch reports: ' + err.message); // Set error message
+            } finally {
+                setLoading(false); // Loading finished
+            }
+        };
+
+        fetchReports();
     }, []);
 
     // Function to handle button click and navigate
@@ -63,28 +84,34 @@ const Reports = () => {
             </aside>
             <main className="main-content">
                 <h1>Scan Reports</h1>
-                <div className="reports-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>File Name</th>
-                                <th>Status</th>
-                                <th>Date Scanned</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {reports.map(report => (
-                                <tr key={report.id}>
-                                    <td>{report.file}</td>
-                                    <td className={report.status === 'Malicious' ? 'malicious' : 'safe'}>
-                                        {report.status}
-                                    </td>
-                                    <td>{report.date}</td>
+                {loading ? (
+                    <p>Loading reports...</p> // Loading state
+                ) : error ? (
+                    <p className="error">{error}</p> // Error message
+                ) : (
+                    <div className="reports-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>File Name</th>
+                                    <th>Status</th>
+                                    <th>Date Scanned</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
+                            </thead>
+                            <tbody>
+                                {reports.map(report => (
+                                    <tr key={report.id}>
+                                        <td>{report.file}</td>
+                                        <td className={report.status === 'Malicious' ? 'malicious' : 'safe'}>
+                                            {report.status}
+                                        </td>
+                                        <td>{report.date}</td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                )}
             </main>
         </div>
     );

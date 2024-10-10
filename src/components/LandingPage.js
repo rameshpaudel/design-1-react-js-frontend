@@ -9,11 +9,10 @@ const LandingPage = () => {
         <div className="landing-page">
             <h1>Welcome to MalwarePro</h1>
             <p>Your files and URLs are safe with us.</p>
-            <FileDisplay />
+            <FileDisplay /> {/* Display uploaded files */}
             <div className="links-container">
                 <Link to="/chat" className="landing-link">Chat with Us</Link>
                 <Link to="/upload" className="landing-link">Upload Your File</Link>
-                
             </div>
         </div>
     );
