@@ -1,12 +1,44 @@
 import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 
 const LoginHistory = () => {
     const [history, setHistory] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState('');
 
     useEffect(() => {
-        const loginHistory = JSON.parse(localStorage.getItem('loginHistory')) || [];
-        setHistory(loginHistory);
+        const fetchLoginHistory = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/dashboard/login-history', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Ensure the token is set if required
+                    }
+                });
+
+                // Check if the response contains data
+                if (response.data && response.data.success && response.data.data) {
+                    setHistory(response.data.data);
+                } else {
+                    throw new Error('No data found');
+                }
+            } catch (err) {
+                console.error('Error fetching login history:', err); // Log the error for debugging
+                setError('Failed to fetch login history. Please try again.');
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchLoginHistory();
     }, []);
+
+    if (loading) {
+        return <div>Loading...</div>;
+    }
+
+    if (error) {
+        return <div>{error}</div>;
+    }
 
     return (
         <div className="login-history-container">
@@ -17,15 +49,15 @@ const LoginHistory = () => {
                 <table>
                     <thead>
                         <tr>
-                            <th>Email</th>
                             <th>Login Time</th>
+                            <th>Logout Time</th>
                         </tr>
                     </thead>
                     <tbody>
                         {history.map((entry, index) => (
                             <tr key={index}>
-                                <td>{entry.email}</td>
-                                <td>{entry.loginTime}</td>
+                                <td>{new Date(entry.login_time).toLocaleString()}</td>
+                                <td>{entry.logout_time ? new Date(entry.logout_time).toLocaleString() : 'Still Logged In'}</td>
                             </tr>
                         ))}
                     </tbody>

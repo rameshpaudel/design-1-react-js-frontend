@@ -138,3 +138,26 @@ header .favicon {
     background-color: #17a67d; /* Darker green on hover */
     transform: translateY(-2px); /* Slight upward movement on hover */
 }
+.pagination {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+  }
+  
+  .page-button {
+    margin: 0 5px;
+    padding: 10px 15px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    cursor: pointer;
+  }
+  
+  .page-button.active {
+    background-color: #1BA29A;
+    color: white;
+  }
+  
+  .page-button:hover {
+    background-color: #ddd;
+  }
+  

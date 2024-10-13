@@ -1,53 +1,63 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import './Header.css'; // Add styles here
+import axios from 'axios';
+import './Header.css';
 
-const Header = ({ setIsAuthenticated, setIsAdmin }) => {
-  const navigate = useNavigate();
+const Header = ({ isAuthenticated, setIsAuthenticated, setIsAdmin, userName, setUserName }) => {
+    const navigate = useNavigate();
 
-  const handleLogout = () => {
-    localStorage.removeItem('userToken');
-    localStorage.removeItem('adminToken');
-    setIsAuthenticated(false);
-    setIsAdmin(false);
-    navigate('/login');
-  };
+    useEffect(() => {
+        // Check for changes in localStorage for the token and username
+        const token = localStorage.getItem('userToken');
+        const storedUserName = localStorage.getItem('userName');
 
-  const userName = localStorage.getItem('userName');
-  const isAdmin = !!localStorage.getItem('adminToken');
+        if (token && storedUserName) {
+            setIsAuthenticated(true);
+            setUserName(storedUserName);
+        } else {
+            setIsAuthenticated(false);
+            setUserName('');
+        }
+    }, [setIsAuthenticated, setUserName]);
 
-  return (
-    <header className="header">
-      <Link to="/" className="logo">
-        MalwarePro
-      </Link>
-      <nav className="nav">
-        {localStorage.getItem('userToken') || isAdmin ? (
-          <>
-            <span className="user-name">{isAdmin ? 'Welcome Admin' : `Welcome, ${userName}`}</span>
-            <div className="dropdown-container">
-              <button className="logout-button" onClick={handleLogout}>
-                Logout
-              </button>
-              <div className="dropdown-content">
-                {/* Link to Admin Dashboard for Admin users */}
-                {isAdmin && (
-                  <Link to="/admindash" className="nav-link">Admin Dashboard</Link>
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://127.0.0.1:5000/logout', {}, {
+                headers: { Authorization: `Bearer ${localStorage.getItem('userToken')}` }
+            });
+
+            // Clear localStorage and authentication states
+            setIsAuthenticated(false);
+            setIsAdmin(false);
+            setUserName('');
+            localStorage.removeItem('userToken');
+            localStorage.removeItem('userName');
+            navigate('/');
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
+
+    return (
+        <header className="header">
+            <Link to="/" className="logo">MalwarePro</Link>
+            <nav className="nav">
+                {isAuthenticated && userName ? (
+                    <>
+                        <span className="user-name">{`Welcome, ${userName}`}</span>
+                        <button className="logout-button" onClick={handleLogout}>
+                            Logout
+                        </button>
+                    </>
+                ) : (
+                    <div>
+                        <Link to="/login" className="nav-link">Sign In</Link>
+                        <Link to="/register" className="nav-link">Sign Up</Link>
+                    </div>
                 )}
-                <Link to="/login-history" className="nav-link">Login History</Link>
-                <Link to="/scan-history" className="nav-link">Scan History</Link>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            <Link to="/login" className="nav-link">Sign In</Link>
-            <Link to="/register" className="nav-link">Sign Up</Link>
-          </>
-        )}
-      </nav>
-    </header>
-  );
+            </nav>
+        </header>
+    );
 };
 
 export default Header;

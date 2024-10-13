@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import './FileUpload.css';
 
 const FileUpload = () => {
-    const [activeTab, setActiveTab] = useState('file'); // State to track the active tab
+    const [activeTab, setActiveTab] = useState('file');
     const [file, setFile] = useState(null);
     const [link, setLink] = useState('');
+    const [uploadStatus, setUploadStatus] = useState('');
 
     const handleFileChange = (event) => {
         setFile(event.target.files[0]);
@@ -14,16 +16,46 @@ const FileUpload = () => {
         setLink(event.target.value);
     };
 
-    const handleFileUpload = () => {
-        alert(`File uploaded: ${file ? file.name : "No file selected"}`);
+    const handleFileUpload = async () => {
+        if (!file) {
+            alert("Please select a file to upload.");
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('file', file);
+
+        try {
+            const response = await axios.post('http://127.0.0.1:5000//dashboard/scan-history', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            setUploadStatus(`File uploaded: ${response.data.message}`);
+        } catch (error) {
+            console.error("Error uploading file:", error);
+            setUploadStatus("File upload failed.");
+        }
     };
 
-    const handleLinkUpload = () => {
-        alert(`Link uploaded: ${link}`);
+    const handleLinkUpload = async () => {
+        if (!link) {
+            alert("Please enter a link to upload.");
+            return;
+        }
+
+        try {
+            const response = await axios.post('/api/upload/link', { link });
+            setUploadStatus(`Link uploaded: ${response.data.message}`);
+        } catch (error) {
+            console.error("Error uploading link:", error);
+            setUploadStatus("Link upload failed.");
+        }
     };
 
     const switchTab = (tabName) => {
         setActiveTab(tabName);
+        setUploadStatus(''); // Reset upload status when switching tabs
     };
 
     return (
@@ -67,6 +99,8 @@ const FileUpload = () => {
                     </div>
                 )}
             </div>
+
+            {uploadStatus && <p className="upload-status">{uploadStatus}</p>}
         </div>
     );
 };

@@ -1,43 +1,52 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import axios from 'axios';
 import './Register.css';
 
 const Register = () => {
+  const [username, setUsername] = useState('');
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setError('');
+
+    // Validate passwords match
     if (password !== confirmPassword) {
-      alert('Passwords do not match!'); // Feedback to user
-      return;
+        setError('Passwords do not match!');
+        return;
     }
 
-    // Retrieve existing users from local storage
-    const existingUsers = JSON.parse(localStorage.getItem('users')) || [];
-
-    // Create new user object
     const newUser = {
-      name: fullName,
-      email,
-      password, // Note: Storing passwords in plain text is not secure; consider better practices for real applications
+        username,
+        name: fullName,
+        email,
+        password,
     };
 
-    // Add new user to the existing users array
-    existingUsers.push(newUser);
+    try {
+        // POST request to backend
+        const response = await axios.post('http://127.0.0.1:5000/register', newUser);
 
-    // Save updated users array back to local storage
-    localStorage.setItem('users', JSON.stringify(existingUsers));
+        // Check for a successful registration response
+        if (response.status === 200) {
+            console.log('Registration successful:', response.data);
+            alert('Registration successful! Redirecting to login...');
+            navigate('/login'); // Redirect to login
+        }
+    } catch (err) {
+        // Handle errors
+        const errorMessage = err.response?.data?.message || 'Registration failed. Please try again.';
+        setError(errorMessage);
+        console.error('Error registering user:', errorMessage);
+    }
+};
 
-    // Save the userName to local storage for display in Header
-    localStorage.setItem('userName', fullName); // Store user's full name
-
-    console.log('Registered with:', { fullName, email });
-    navigate('/login'); // Redirect to the login page after registration
-  };
 
   return (
     <div className="login-container">
@@ -56,18 +65,22 @@ const Register = () => {
               Malware Pro
             </h2>
             <h3>Register an Account</h3>
-            <p
-              style={{
-                fontSize: '12px',
-                color: '#333',
-                textAlign: 'left',
-                marginBottom: '10px',
-              }}
-            >
+            {error && <p style={{ color: 'red' }}>{error}</p>}
+            <p style={{ fontSize: '12px', color: '#333', textAlign: 'left', marginBottom: '10px' }}>
               Create an account to access our Malware Pro features.
             </p>
 
             <form onSubmit={handleSubmit} className="login-form">
+              <div className="input-group">
+                <label>Username</label>
+                <input
+                  type="text"
+                  value={username}
+                  onChange={(e) => setUsername(e.target.value)}
+                  placeholder="Enter your username"
+                  required
+                />
+              </div>
               <div className="input-group">
                 <label>Full Name</label>
                 <input
