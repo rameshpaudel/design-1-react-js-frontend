@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 const API_URL = 'http://127.0.0.1:5000'; // Replace with your backend API URL
 
 export const loginUser = async (username, email, password) => { // Added username parameter
@@ -21,3 +23,16 @@ export const loginUser = async (username, email, password) => { // Added usernam
         return { success: false, message: 'Login failed' }; // Return error message
     }
 };
+
+//Add base url to place the url all in one place
+export const httpClient = axios.create({
+    baseURL: "http://127.0.0.1:5000",
+    // baseURL: process.env.APP_API_BASE_URL,
+});
+
+//Automatically add token on all the request
+httpClient.interceptors.request.use(function (config) {
+    const token = localStorage.getItem('userToken');
+    config.headers.Authorization =  token ? `Bearer ${token}` : '';
+    return config;
+});

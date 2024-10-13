@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
+import {httpClient} from './api';
 import './Login.css';
+
 
 const Login = ({ setIsAuthenticated, setIsAdmin, setUserName }) => {
     const [username, setUsername] = useState('');
@@ -21,15 +22,26 @@ const Login = ({ setIsAuthenticated, setIsAdmin, setUserName }) => {
         const userCredentials = { username, password };
 
         try {
-            const response = await axios.post('http://127.0.0.1:5000/login', userCredentials);
+            const response = await httpClient.post('/login', userCredentials);
             if (response.status === 200) {
-                const { isAdmin, userName, token } = response.data; // Ensure token is returned
+                const {  token } = response.data; // Ensure token is returned
+                localStorage.setItem('userToken', token); // Save token to localStorage [redundant]
+            }
+            //Get current user from the api
+            const userInfo = await httpClient.get('/current-user')
+            if(userInfo.status === 200){
                 setIsAuthenticated(true);
-                setIsAdmin(isAdmin);
-                setUserName(userName); // Set username in state
-                localStorage.setItem('userToken', token); // Save token to localStorage
-                localStorage.setItem('userName', userName); // Save username to localStorage
-                navigate('/'); // Redirect based on user type
+                const {role,username} = userInfo.data.data;
+                localStorage.setItem('userName', username)
+                setUserName(username); // Set username in state
+                //Check if the role is admin
+                if(role == "admin"){
+                    setIsAdmin(true);
+                    navigate('/admindash'); // Redirect to dashboard if admin
+                } else {
+                    navigate('/'); // Redirect based on user type
+                }
+
             }
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';
