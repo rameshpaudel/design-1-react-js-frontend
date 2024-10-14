@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import {httpClient} from './api';
+import { httpClient } from './api'; // Assuming you're using axios instance here
 import './Login.css';
-
 
 const Login = ({ setIsAuthenticated, setIsAdmin, setUserName }) => {
     const [username, setUsername] = useState('');
@@ -24,24 +23,25 @@ const Login = ({ setIsAuthenticated, setIsAdmin, setUserName }) => {
         try {
             const response = await httpClient.post('/login', userCredentials);
             if (response.status === 200) {
-                const {  token } = response.data; // Ensure token is returned
-                localStorage.setItem('userToken', token); // Save token to localStorage [redundant]
-            }
-            //Get current user from the api
-            const userInfo = await httpClient.get('/current-user')
-            if(userInfo.status === 200){
-                setIsAuthenticated(true);
-                const {role,username} = userInfo.data.data;
-                localStorage.setItem('userName', username)
-                setUserName(username); // Set username in state
-                //Check if the role is admin
-                if(role == "admin"){
-                    setIsAdmin(true);
-                    navigate('/admindash'); // Redirect to dashboard if admin
-                } else {
-                    navigate('/'); // Redirect based on user type
-                }
+                const { token } = response.data; // Ensure token is returned
+                localStorage.setItem('userToken', token); // Save token to localStorage
 
+                // Get current user info
+                const userInfo = await httpClient.get('/current-user');
+                if (userInfo.status === 200) {
+                    setIsAuthenticated(true);
+                    const { role, username } = userInfo.data.data;
+                    localStorage.setItem('userName', username);
+                    setUserName(username); // Set username in state
+
+                    // Check if the role is admin
+                    if (role === 'admin') {
+                        setIsAdmin(true);
+                        navigate('/admindash'); // Redirect to admin dashboard
+                    } else {
+                        navigate('/'); // Redirect to user dashboard
+                    }
+                }
             }
         } catch (err) {
             const errorMessage = err.response?.data?.message || 'Login failed. Please try again.';

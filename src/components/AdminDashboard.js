@@ -2,36 +2,61 @@ import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Bar, Doughnut } from 'react-chartjs-2';
 import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement } from 'chart.js';
+import axios from 'axios'; // For API requests
 import './AdminDashboard.css';
 
-// Register the necessary components for Chart.js
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend, ArcElement);
 
 const AdminDashboard = () => {
-    const navigate = useNavigate(); // Initialize navigate for navigation  
-    const [activeButton, setActiveButton] = useState('Dashboard'); // Default active button
-    const [userCount, setUserCount] = useState(0); // State to store the number of users
-    const [fileData, setFileData] = useState({ malicious: 0, safe: 0 }); // State to store file data
+    const navigate = useNavigate();
+    const [activeButton, setActiveButton] = useState('Dashboard');
+    const [userCount, setUserCount] = useState(0);
+    const [fileData, setFileData] = useState({ malicious: 0, safe: 0 });
 
+    // Fetch user data from API when the component mounts
     useEffect(() => {
-        // Fetch user data from local storage when the component mounts
-        const users = JSON.parse(localStorage.getItem('users')) || [];
-        setUserCount(users.length); // Update the user count state
+        const fetchUserData = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/dashboard/users', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Include token
+                    }
+                });
+                setUserCount(response.data.data.length); // Update user count
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        };
 
-        // Fetch file data from local storage
-        const files = JSON.parse(localStorage.getItem('scannedFiles')) || [];
-        const maliciousCount = files.filter(file => !file.maliciousSafe).length; // Count malicious files
-        const safeCount = files.filter(file => file.maliciousSafe).length; // Count safe files
-        setFileData({ malicious: maliciousCount, safe: safeCount }); // Update the file data state
+        // Fetch scan history data from the Reports API
+        const fetchScanHistory = async () => {
+            try {
+                const response = await axios.get('http://127.0.0.1:5000/dashboard/scan-history', {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
+                const scanHistory = response.data.data || [];
+                // Count malicious and safe files from scan history
+                const maliciousCount = scanHistory.filter(scan => scan.status === 'Malicious').length;
+                const safeCount = scanHistory.filter(scan => scan.status !== 'Malicious').length;
+                setFileData({ malicious: maliciousCount, safe: safeCount });
+            } catch (error) {
+                console.error('Error fetching scan history:', error);
+            }
+        };
+
+        fetchUserData(); // Fetch user data from the backend
+        fetchScanHistory(); // Fetch scan history data from the API
     }, []);
 
-    // Sample data for charts with dynamic user count
+    // Data for user count chart (fetched from backend)
     const userData = {
-        labels: ['Total Users'], // Single label for total users
+        labels: ['Total Users'],
         datasets: [
             {
                 label: 'Number of Users',
-                data: [userCount], // Update the data to reflect the actual user count
+                data: [userCount],
                 backgroundColor: 'rgba(75, 192, 192, 0.6)',
                 borderColor: 'rgba(75, 192, 192, 1)',
                 borderWidth: 1,
@@ -39,22 +64,22 @@ const AdminDashboard = () => {
         ],
     };
 
-    // Update fileData for charts
+    // Data for file status chart (fetched from scan history API)
     const chartFileData = {
         labels: ['Malicious', 'Safe'],
         datasets: [
             {
-                data: [fileData.malicious, fileData.safe], // Use the actual file counts
+                data: [fileData.malicious, fileData.safe],
                 backgroundColor: ['rgba(255, 99, 132, 0.6)', 'rgba(75, 192, 192, 0.6)'],
                 hoverBackgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(75, 192, 192, 1)'],
             },
         ],
     };
 
-    // Function to handle button click and navigate
+    // Function to handle navigation when buttons are clicked
     const handleButtonClick = (buttonName, route) => {
         navigate(route); // Navigate to the corresponding route
-        setActiveButton(buttonName); // Set the active button
+        setActiveButton(buttonName); // Set the active button state
     };
 
     return (
@@ -64,37 +89,37 @@ const AdminDashboard = () => {
                     <div className="admin-pic">
                         <div className="admin-circle">A</div> {/* Placeholder for admin picture */}
                     </div>
-                    <h2 className="admin-name">Admin Name</h2> {/* Display admin name */}
+                    <h2 className="admin-name">Admin Name</h2>
                 </div>
                 <nav className="nav-buttons">
                     <button 
                         className={`nav-button ${activeButton === 'Dashboard' ? 'active' : ''}`} 
-                        onClick={() => handleButtonClick('Dashboard', '/admindash')} // Home route
+                        onClick={() => handleButtonClick('Dashboard', '/admindash')}
                     >
                         <i className="fas fa-tachometer-alt"></i> Dashboard
                     </button>
                     <button 
                         className={`nav-button ${activeButton === 'File Management' ? 'active' : ''}`} 
-                        onClick={() => handleButtonClick('File Management', '/files')} // File Management route
+                        onClick={() => handleButtonClick('File Management', '/files')}
                     >
                         <i className="fas fa-folder"></i> File Management
                     </button>
                     <button 
                         className={`nav-button ${activeButton === 'Reports' ? 'active' : ''}`} 
-                        onClick={() => handleButtonClick('Reports', '/reports')} // Reports route
+                        onClick={() => handleButtonClick('Reports', '/reports')}
                     >
                         <i className="fas fa-chart-line"></i> Reports
                     </button>
                     <button 
                         className={`nav-button ${activeButton === 'User Management' ? 'active' : ''}`} 
-                        onClick={() => handleButtonClick('User Management', '/user')} // User Management route
+                        onClick={() => handleButtonClick('User Management', '/user')}
                     >
                         <i className="fas fa-users"></i> User Management
                     </button>
                 </nav>
             </aside>
             <main className="main-content">
-                <h1>Welcome to the Admin Dashboard</h1> {/* Main content header */}
+                <h1>Welcome to the Admin Dashboard</h1>
                 <div className="charts-wrapper">
                     <div className="chart-container">
                         <h2>Number of Users</h2>

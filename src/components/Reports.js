@@ -5,39 +5,33 @@ import './Reports.css'; // Import your CSS file
 const Reports = () => {
     const navigate = useNavigate(); // Initialize navigate for navigation
     const [activeButton, setActiveButton] = useState('Reports'); // Default active button
-    const [reports, setReports] = useState([]); // State to hold reports data
+    const [scanHistory, setScanHistory] = useState([]); // State to hold scan history data
     const [loading, setLoading] = useState(true); // State to manage loading state
     const [error, setError] = useState(null); // State to manage error
 
     useEffect(() => {
-        // Fetch reports from a dummy API
-        const fetchReports = async () => {
+        // Fetch scan history from the API
+        const fetchScanHistory = async () => {
             try {
                 setLoading(true); // Start loading
-                // Using a dummy API endpoint for testing
-                const response = await fetch('https://jsonplaceholder.typicode.com/posts'); // Replace with your API URL
+                const response = await fetch('http://127.0.0.1:5000/dashboard/scan-history'); // Replace with your API URL
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
                 const data = await response.json();
-                
-                // Transforming dummy data to match your report structure
-                const transformedReports = data.slice(0, 5).map((item, index) => ({
-                    id: index + 1,
-                    file: item.title, // Using title as a file name
-                    status: index % 2 === 0 ? 'Malicious' : 'Safe', // Alternating status for testing
-                    date: new Date().toLocaleDateString(), // Current date
-                }));
-
-                setReports(transformedReports); // Set the fetched reports
+                if (data.success) {
+                    setScanHistory(data.data); // Store the data in state
+                } else {
+                    setError("Failed to load scan history: " + data.message);
+                }
             } catch (err) {
-                setError('Failed to fetch reports: ' + err.message); // Set error message
+                setError('Failed to fetch scan history: ' + err.message); // Set error message
             } finally {
                 setLoading(false); // Loading finished
             }
         };
 
-        fetchReports();
+        fetchScanHistory();
     }, []);
 
     // Function to handle button click and navigate
@@ -94,20 +88,32 @@ const Reports = () => {
                             <thead>
                                 <tr>
                                     <th>File Name</th>
+                                    <th>Hashed Name</th>
+                                    <th>File Size</th>
                                     <th>Status</th>
-                                    <th>Date Scanned</th>
+                                    <th>Results</th>
+                                    <th>Date Created</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                {reports.map(report => (
-                                    <tr key={report.id}>
-                                        <td>{report.file}</td>
-                                        <td className={report.status === 'Malicious' ? 'malicious' : 'safe'}>
-                                            {report.status}
-                                        </td>
-                                        <td>{report.date}</td>
+                                {scanHistory.length > 0 ? (
+                                    scanHistory.map((scan) => (
+                                        <tr key={scan.id}>
+                                            <td>{scan.file_name}</td>
+                                            <td>{scan.hashed_name}</td>
+                                            <td>{scan.file_size}</td>
+                                            <td className={scan.status === 'Malicious' ? 'malicious' : 'safe'}>
+                                                {scan.status}
+                                            </td>
+                                            <td>{scan.results}</td>
+                                            <td>{new Date(scan.created_at).toLocaleString()}</td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="6">No scan history available.</td>
                                     </tr>
-                                ))}
+                                )}
                             </tbody>
                         </table>
                     </div>

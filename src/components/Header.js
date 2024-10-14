@@ -7,7 +7,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, setIsAdmin, userName, set
     const navigate = useNavigate();
 
     useEffect(() => {
-        // Check for changes in localStorage for the token and username
+        // Check for userToken and userName in localStorage
         const token = localStorage.getItem('userToken');
         const storedUserName = localStorage.getItem('userName');
 
@@ -32,7 +32,7 @@ const Header = ({ isAuthenticated, setIsAuthenticated, setIsAdmin, userName, set
             setUserName('');
             localStorage.removeItem('userToken');
             localStorage.removeItem('userName');
-            navigate('/');
+            navigate('/login'); // Redirect to login page after logout
         } catch (error) {
             console.error('Logout failed:', error);
         }

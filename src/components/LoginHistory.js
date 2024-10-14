@@ -9,20 +9,20 @@ const LoginHistory = () => {
     useEffect(() => {
         const fetchLoginHistory = async () => {
             try {
-                const response = await axios.get('http://127.0.0.1:5000/dashboard/login-history', {
+                const response = await axios.get('http://127.0.0.1:5000/login-history', {
                     headers: {
-                        'Authorization': `Bearer ${localStorage.getItem('token')}` // Ensure the token is set if required
+                        'Authorization': `Bearer ${localStorage.getItem('userToken')}` // Use the correct token key
                     }
                 });
 
-                // Check if the response contains data
+                // Ensure the response contains success flag and data
                 if (response.data && response.data.success && response.data.data) {
-                    setHistory(response.data.data);
+                    setHistory(response.data.data); // Set the history data
                 } else {
                     throw new Error('No data found');
                 }
             } catch (err) {
-                console.error('Error fetching login history:', err); // Log the error for debugging
+                console.error('Error fetching login history:', err);
                 setError('Failed to fetch login history. Please try again.');
             } finally {
                 setLoading(false);

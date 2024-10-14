@@ -54,7 +54,7 @@ function App() {
                     />
                     <Route path="/register" element={<Register />} />
                     <Route path="/login-history" element={<LoginHistory /> } />
-                    <Route path="/scan-history" element={isAuthenticated || isAdmin ? <ScanHistory /> : <Navigate to="/login" />} />
+                    <Route path="/scan-history" element={<ScanHistory /> } />
                     <Route path="/upload" element={ <FileUpload /> } />
                     <Route path="/adminlogin" element={<AdministratorLogin setIsAdmin={setIsAdmin} />} />
                     <Route path="/admindash" element={isAdmin ? <AdminDashboard /> : <Navigate to="/adminlogin" />} />
