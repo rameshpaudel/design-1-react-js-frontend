@@ -40,14 +40,17 @@ const Sidebar = () => {
         >
           <FileText className="inline-block mr-2" /> Upload And Train
         </Link>
-        {/* <Link
-          to="/reports"
+
+        {/* Model Reports Link */}
+        <Link
+          to="/mreports"
           className={`block py-2 px-4 rounded-md ${activeClassName(
-            "/reports"
+            "/model-reports"
           )} mb-2`}
         >
-          <PieChart className="inline-block mr-2" /> Reports
-        </Link> */}
+          <PieChart className="inline-block mr-2" /> Model Reports
+        </Link>
+
         <Link
           to="/user"
           className={`block py-2 px-4 rounded-md  mb-2 ${activeClassName(

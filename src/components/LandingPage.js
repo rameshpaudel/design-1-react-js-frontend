@@ -108,7 +108,7 @@ const LandingPage = () => {
               />
               <StatCard
                 icon={Upload}
-                title="Scanned URLs"
+                title="Scanned Files"
                 value={stats?.total_scans}
               />
             </div>

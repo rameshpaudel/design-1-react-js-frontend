@@ -4,7 +4,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import Chat from "./components/Chat";
 import AdminDashboard from "./components/AdminDashboard";
-import Files from "./components/Files";
+//import Files from "./components/Files";
 import UserManagement from "./components/UserManagement";
 import Reports from "./components/Reports";
 import FileUpload from "./components/FileUpload";
@@ -13,6 +13,8 @@ import LandingPage from "./components/LandingPage";
 import ScanHistory from "./components/ScanHistory";
 import LoginHistory from "./components/LoginHistory";
 import UploadAndTrain from "./components/UploadAndTrain";
+import ModelReport from "./components/ModelReport";
+import Footer from "./components/Footer"; // Corrected import path
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -33,7 +35,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="flex flex-col min-h-screen"> {/* Ensure proper layout */}
         <Header
           isAuthenticated={isAuthenticated}
           setIsAuthenticated={setIsAuthenticated}
@@ -57,11 +59,13 @@ function App() {
           <Route path="/admindash" element={<AdminDashboard />} />
           <Route path="/upload-and-train" element={<UploadAndTrain />} />
           <Route path="/user" element={<UserManagement />} />
+          <Route path="/mreports" element={<ModelReport />} />
           <Route path="/user/:id/reports" element={<Reports />} />
           <Route path="/reports" element={<Reports />} />
           <Route path="/" element={<LandingPage />} />
           <Route path="/chat" element={<Chat />} />
         </Routes>
+        <Footer /> {/* Add the footer here */}
       </div>
     </Router>
   );
